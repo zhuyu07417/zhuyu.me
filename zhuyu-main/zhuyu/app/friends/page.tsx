@@ -163,7 +163,7 @@ export default function FriendsPage() {
             </div>
             <h2 className="text-base font-bold text-slate-800 dark:text-white mb-1">{active.name}</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{active.description || "暂无描述"}</p>
-            <a href={active.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-sky-500 text-white text-xs font-medium hover:bg-sky-600 transition-colors shadow-lg shadow-sky-500/20"><ExternalLink className="w-3.5 h-3.5" /> 访问</a>
+            <a href={active.url.startsWith('http') ? active.url : `https://${active.url}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-sky-500 text-white text-xs font-medium hover:bg-sky-600 transition-colors shadow-lg shadow-sky-500/20"><ExternalLink className="w-3.5 h-3.5" /> 访问</a>
           </div>
         </div>
       )}
