@@ -1,0 +1,22 @@
+const NeteaseCloudMusicApi = require('NeteaseCloudMusicApi');
+const express = require('express');
+const app = express();
+
+const MUSIC_U = process.env.MUSIC_U || '';
+const cookie = `MUSIC_U=${MUSIC_U}`;
+
+app.use(async (req, res) => {
+  try {
+    const funcName = req.path.replace(/^\//, '').replace(/\//g, '_');
+    const func = NeteaseCloudMusicApi[funcName];
+    if (!func) {
+      return res.status(404).json({ error: 'not found: ' + funcName });
+    }
+    const result = await func({ ...req.query, cookie });
+    res.json(result.body);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.listen(3001, () => console.log('Netease API running on port 3001'));
